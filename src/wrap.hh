@@ -29,7 +29,9 @@
 
 #include <roboptim/core/callback/multiplexer.hh>
 
-#include <roboptim/core/decorator/cached-function.hh>
+#ifndef WIN32
+# include <roboptim/core/decorator/cached-function.hh>
+#endif
 
 #include <roboptim/core/detail/utility.hh>
 
@@ -228,6 +230,7 @@ namespace roboptim
 	}
       };
 
+#ifndef WIN32
       class CachedFunction
 	: virtual public ::roboptim::DifferentiableFunction,
 	  public ::roboptim::core::python::DifferentiableFunction
@@ -262,6 +265,7 @@ namespace roboptim
       private:
 	boost::shared_ptr<cache_t> cached_f_;
       };
+#endif
 
 
       template <typename S>

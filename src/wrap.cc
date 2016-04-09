@@ -380,6 +380,7 @@ namespace roboptim
       }
 
 
+#ifndef WIN32
       CachedFunction::CachedFunction (boost::shared_ptr<pyFunction_t> f, size_t cache_size)
         : function_t (f->inputSize (), f->outputSize (), f->getName ()),
 	  pyFunction_t (f->inputSize (), f->outputSize (), f->getName ()),
@@ -417,6 +418,7 @@ namespace roboptim
       {
 	return cached_f_->print (o);
       }
+#endif
 
       FunctionPool::~FunctionPool ()
       {
@@ -453,7 +455,9 @@ using roboptim::core::python::DifferentiableFunction;
 using roboptim::core::python::TwiceDifferentiableFunction;
 using roboptim::core::python::FiniteDifferenceGradient;
 using roboptim::core::python::FunctionPool;
-using roboptim::core::python::CachedFunction;
+#ifndef WIN32
+ using roboptim::core::python::CachedFunction;
+#endif
 
 namespace detail
 {
@@ -1018,6 +1022,7 @@ createFDWrapper (PyObject*, PyObject* args)
   return fdFunctionPy;
 }
 
+#ifndef WIN32
 static PyObject*
 createCachedFunction (PyObject*, PyObject* args)
 {
@@ -1061,6 +1066,7 @@ createCachedFunction (PyObject*, PyObject* args)
 
   return cachedFunctionPy;
 }
+#endif
 
 static PyObject*
 inputSize (PyObject*, PyObject* args)
@@ -2960,9 +2966,11 @@ static PyMethodDef RobOptimCoreMethods[] =
      createFDWrapper<FiniteDifferenceGradient<fivePointsPolicy_t> >,
      METH_VARARGS, "Create a FiniteDifferenceGradient with the 5-point rule."},
 
+#ifndef WIN32
     // Decorators
     {"CachedFunction", createCachedFunction, METH_VARARGS,
      "Create a cached function."},
+#endif
 
     // Print functions
     {"strFunction", print<Function>, METH_VARARGS,

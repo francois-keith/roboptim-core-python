@@ -18,6 +18,8 @@
 #ifndef ROBOPTIM_CORE_PYTHON_TO_PYTHON_HH
 # define ROBOPTIM_CORE_PYTHON_TO_PYTHON_HH
 
+# include "roboptim/core/python/config.hh"
+
 # include <string>
 
 namespace roboptim
@@ -26,7 +28,7 @@ namespace roboptim
   {
     /// \brief Helper to run Python commands in the Python interpreter.
     /// WARNING: this is not thread-safe for now (GIL etc.).
-    class ToPython
+    class ROBOPTIM_CORE_PYTHON_DLLAPI ToPython
     {
     public:
 

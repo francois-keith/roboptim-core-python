@@ -14,9 +14,13 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 # at least plugins do not need to link with roboptim-core themselves. A better
 # solution may be implemented later on.
 from ctypes import CDLL, RTLD_GLOBAL
-CDLL("libroboptim-core.so", RTLD_GLOBAL)
 
-from .wrap import *
+if not os.name == 'nt':
+  CDLL("libroboptim-core.so", RTLD_GLOBAL)
+  from .wrap import *
+else:
+  CDLL("roboptim-core.dll", RTLD_GLOBAL)
+  from wrap import *
 
 def parallel_pool_jac_eval(data):
     f = data[0]

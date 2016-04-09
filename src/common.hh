@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with roboptim.  If not, see <http://www.gnu.org/licenses/>.
 
+#include "roboptim/core/python/config.hh"
 #include <Python.h>
 
 // Python 3 support
@@ -33,6 +34,6 @@ namespace roboptim
   {
     std::string toString (PyObject* obj);
 
-    void checkPythonError ();
+    ROBOPTIM_CORE_PYTHON_DLLAPI void checkPythonError ();
   } // end of namespace python
 } // end of namespace roboptim
